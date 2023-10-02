@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Route, Link, Routes } from "react-router-dom";
-import Home from "./components/home/home"
-import StartPage from "./components/start/startpage";
+import Home from "./components/home/Home"
+import StartPage from "./components/start/StartPage.js";
 
 
 

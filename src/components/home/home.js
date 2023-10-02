@@ -1,6 +1,16 @@
 import React from "react";
+import StartMenu from "./StartMenu.js";
+import { useDispatch } from 'react-redux';
+import { toggleStartMenu } from "../action/Actions.js";
 
-const home = () => {
+
+const Home = () => {
+    const dispatch = useDispatch();
+
+    const handleOpenStartMenu = () => {
+        dispatch(toggleStartMenu());
+    }
+    
     return(
         <div className="home">
             
@@ -13,7 +23,6 @@ const home = () => {
 
             <div className="bottom">
                 <ul className="window_bottom_bar">
-                    <li>윈도우 버튼</li>
                     <li>검색창</li>
                     <li>기타 페이지들</li>
                     <li>날씨</li>
@@ -21,10 +30,11 @@ const home = () => {
                     <li>캘린더</li>
                     <li>오른쪽 섬띵</li>
                 </ul>
+                <button onClick={handleOpenStartMenu}>열기 버튼</button>
+                <StartMenu />
             </div>
         </div>
-
     );
 };
 
-export default home;
+export default Home;

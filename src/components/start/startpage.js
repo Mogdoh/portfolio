@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import Loading from "./loadingspinner"
+import Loading from "./LoadingSpinner"
 import { Link } from "react-router-dom";
-import Home from "../home/home";
+import Home from "../home/Home";
 import { useNavigate } from "react-router-dom";
 
     
