@@ -1,6 +1,6 @@
-
 const initialState = {
-    isOpen: false,
+    isStartMenuOpen: false,
+    isCalendarOpen: false,
 };
 
 export const startMenuReducer = (state = initialState, action) => {
@@ -8,9 +8,14 @@ export const startMenuReducer = (state = initialState, action) => {
         case 'TOGGLE_START_MENU':
             return {
                 ...state,
-                isOpen: !state.isOpen,
+                isStartMenuOpen: !state.isStartMenuOpen,
             };
-            default:
-                return state;
+        case 'TOGGLE_CALENDAR':
+            return {
+                ...state,
+                isCalendarOpen: !state.isCalendarOpen,
+            };
+        default:
+            return state;
     }
 };

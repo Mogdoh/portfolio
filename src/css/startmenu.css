@@ -1,4 +1,4 @@
-.start_menu {
+.start-menu {
     position: absolute;
     top: 0;
     left: 0;
@@ -11,12 +11,12 @@
     transform: translateX(-200px);
 }
 
-.start_menu.open{
+.start-menu.open{
     transform: translateY(0);
 }
 
 /* 시작버튼 메뉴 스타일 */
-.start_button {
+.start-button {
     background: none;
     border: none;
     color: white;
@@ -25,16 +25,16 @@
 }
 
 /* 응용 프로그램 목록 스타일 */
-.program_left{
+.program-left{
     list-style: none;
     padding: 0;
 }
 
-.program_left li{
+.program-left li{
     padding: 10px;
     cursor: pointer;
 }
 
-.program_left li:hover{
+.program-left li:hover{
     background-color: #555;
 }
