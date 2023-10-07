@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import { toggleStartMenu } from "../action/Actions.js";
-import "../../css/startmenu.css";
+import "../../css/StartMenu.css";
 
 function StartMenu() {
     const isOpen = useSelector((state) => state.isOpen);
