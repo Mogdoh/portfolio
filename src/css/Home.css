@@ -1,6 +1,17 @@
-.div-bottom{
+.home_bottom{
     display: flex;
-    width: auto;
-    height: 10%;
-    top: 80%;
 }
+
+.windowButton{
+    height: 10px;
+}
+
+.home_top{
+    width: auto;
+    height: 730px;
+    color: aliceblue;
+}
+
+
+
+

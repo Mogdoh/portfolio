@@ -9,7 +9,7 @@ import StartPage from "./components/start/StartPage.js";
 function App() {
   return (
     <div className="App">
-
+      
       <Routes>
         <Route path="/" element={<StartPage />} />
         <Route path="/home" element={<Home />} />
