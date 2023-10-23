@@ -3,7 +3,7 @@ const initialState = {
     isCalendarOpen: false,
 };
 
-export const startMenuReducer = (state = initialState, action) => {
+export const windowReducer = (state = initialState, action) => {
     switch (action.type) {
         case 'TOGGLE_START_MENU':
             return {

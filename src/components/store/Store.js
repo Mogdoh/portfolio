@@ -1,6 +1,6 @@
 import {createStore} from 'redux'
-import { startMenuReducer } from '../reducer/Reducers'
+import { windowReducer } from '../reducer/Reducers'
 
-const store = createStore(startMenuReducer);
+const store = createStore(windowReducer);
 
 export default store;

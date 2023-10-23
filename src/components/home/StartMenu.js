@@ -10,7 +10,7 @@ function StartMenu() {
     const startMenuRef = useRef(null);
 
     const handleButtonClick = () => {
-        dispatch(toggleStartMenu(true));
+        dispatch(toggleStartMenu(!isOpen));
     };
 
     const handleAppItemClick = (appName) => {
@@ -18,11 +18,11 @@ function StartMenu() {
         console.log(`앱 "${appName}"을 실행합니다.`);
     };
 
-    useOutsideClick(startMenuRef, () => {
-        if (isOpen) {
-            dispatch(toggleStartMenu(false));
-        }
-    });
+    // useOutsideClick(startMenuRef, () => {
+    //     if (isOpen) {
+    //         dispatch(toggleStartMenu(false));
+    //     }
+    // });
 
     return (
         <div ref={startMenuRef} className={`start-menu ${isOpen ? 'open' : ''}`}>
