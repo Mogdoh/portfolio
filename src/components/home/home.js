@@ -45,7 +45,7 @@ const Home = () => {
     const formattedTime = currentDateTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
     const formattedDate = printDate();
 
-    const handleOpenStartMenu = () => {
+    const handleOpenStartMenu = (event) => {
         dispatch(toggleStartMenu());
     };
 
@@ -55,6 +55,10 @@ const Home = () => {
 
     // Outside click 이벤트 핸들러
     const handleClickOutside = (event) => {
+        if (event.target.closest('.windowButton')) {
+            return;
+        }
+
         if (isStartMenuOpen && startMenuRef.current && !startMenuRef.current.contains(event.target)) {
             dispatch(toggleStartMenu());
         }
@@ -70,8 +74,9 @@ const Home = () => {
             document.removeEventListener("mousedown", handleClickOutside);
         };
     }, [isStartMenuOpen, isCalendarOpen])
-
-
+    
+    
+    console.log(handleOpenCalendar);
     return (
         <div className="home"
             style={{
