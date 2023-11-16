@@ -1,13 +1,11 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, forwardRef } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import { toggleStartMenu } from "../action/Actions.js";
-import { useOutsideClick } from './OutsideClick';
 import "../../css/StartMenu.css";
 
-function StartMenu() {
+const StartMenu = forwardRef ((props, ref) => {
     const isOpen = useSelector((state) => state.isStartMenuOpen);
     const dispatch = useDispatch();
-    const startMenuRef = useRef(null);
 
     const handleButtonClick = () => {
         dispatch(toggleStartMenu(!isOpen));
@@ -18,14 +16,8 @@ function StartMenu() {
         console.log(`앱 "${appName}"을 실행합니다.`);
     };
 
-    // useOutsideClick(startMenuRef, () => {
-    //     if (isOpen) {
-    //         dispatch(toggleStartMenu(false));
-    //     }
-    // });
-
     return (
-        <div ref={startMenuRef} className={`start-menu ${isOpen ? 'open' : ''}`}>
+        <div ref={ref} className={`start-menu ${isOpen ? 'open' : ''}`}>
             <button onClick={handleButtonClick} className="start-button">
                 시작 버튼 이미지
             </button>
@@ -38,6 +30,6 @@ function StartMenu() {
             </ul>
         </div>
     );
-}
+});
 
 export default StartMenu;

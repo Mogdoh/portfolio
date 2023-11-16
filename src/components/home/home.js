@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useSelector, useDispatch } from 'react-redux';
 import { toggleCalendarAction, toggleStartMenu } from "../action/Actions.js";
 import StartMenu from "./StartMenu.js";
@@ -11,6 +11,10 @@ const Home = () => {
     const isStartMenuOpen = useSelector((state) => state.isStartMenuOpen);
     const isCalendarOpen = useSelector((state) => state.isCalendarOpen);
     const [currentDateTime, setCurrentDateTime] = useState(new Date());
+    
+    //outside click
+    const startMenuRef = useRef(null);
+    const calendarRef = useRef(null);
 
     const printDate = () => {
         const today = new Date();
@@ -49,7 +53,24 @@ const Home = () => {
         dispatch(toggleCalendarAction());
     };
 
-    console.log(handleOpenStartMenu);
+    // Outside click 이벤트 핸들러
+    const handleClickOutside = (event) => {
+        if (isStartMenuOpen && startMenuRef.current && !startMenuRef.current.contains(event.target)) {
+            dispatch(toggleStartMenu());
+        }
+        if (isCalendarOpen && calendarRef.current && !calendarRef.current.contains(event.target)) {
+            dispatch(toggleCalendarAction());
+        }
+    };
+
+    // 컴포넌트 마운트 후 클릭 이벤트 리스너 등록, 언마운트 시 리스너 제거
+    useEffect(() => {
+        document.addEventListener("mousedown", handleClickOutside);
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+        };
+    }, [isStartMenuOpen, isCalendarOpen])
+
 
     return (
         <div className="home"
@@ -82,12 +103,12 @@ const Home = () => {
                     <button onClick={handleOpenStartMenu}>
                         열기 버튼
                     </button>
-                    {isStartMenuOpen && <StartMenu />}
+                    {isStartMenuOpen && <StartMenu ref={startMenuRef} />}
 
                     <button onClick={handleOpenCalendar}>
                         {formattedTime} {formattedDate}
                     </button>
-                    {isCalendarOpen && <Calendar />}
+                    {isCalendarOpen && <Calendar ref={calendarRef} />}
                 </div>
             </div>
         </div>
