@@ -1,16 +1,36 @@
-.home_bottom{
-    display: flex;
-}
-
-.windowButton{
-    height: 10px;
+.home_bottom {
+    background-color: gray;
+    height: 60px;
+    opacity: 85%;
 }
 
 .home_top{
     width: auto;
-    height: 730px;
+    height: 745px;
     color: aliceblue;
 }
+
+.git {
+    width: 65px;
+    height: 65px;
+}
+.recycling-bin {
+    width: 65px;
+    height: 65px;
+}
+
+.icon:hover {
+    background-color:  #f1f1f1; 
+    opacity: 0.2;
+}
+
+
+.icon {
+    width: 65px;
+    height: 65px;
+}
+
+
 
 
 

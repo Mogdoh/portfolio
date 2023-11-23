@@ -5,13 +5,15 @@ import StartMenu from "./StartMenu.js";
 import Calendar from "./Calendar.js";
 import BackGroundImage from "../../images/window.jpg";
 import "../../css/Home.css";
+import RecyclingBin from "../../images/empty.png"
+import PulledBin from "../../images/pulled.png"
+import Git from "../../images/git.png"
 
 const Home = () => {
     const dispatch = useDispatch();
     const isStartMenuOpen = useSelector((state) => state.isStartMenuOpen);
     const isCalendarOpen = useSelector((state) => state.isCalendarOpen);
     const [currentDateTime, setCurrentDateTime] = useState(new Date());
-    
     //outside click
     const startMenuRef = useRef(null);
     const calendarRef = useRef(null);
@@ -66,19 +68,33 @@ const Home = () => {
             dispatch(toggleCalendarAction());
         }
     };
-
+    
     // 컴포넌트 마운트 후 클릭 이벤트 리스너 등록, 언마운트 시 리스너 제거
     useEffect(() => {
         document.addEventListener("mousedown", handleClickOutside);
         return () => {
             document.removeEventListener("mousedown", handleClickOutside);
         };
+        
     }, [isStartMenuOpen, isCalendarOpen])
+
+    const handleScroll = (e) => {
+        e.preventDefault(); // 기본 스크롤 동작 방지
+        e.stopPropagation(); // 이벤트 전파 중단
+        return false; // 다른 브라우저 기본 동작 방지
+    };
+    
+    // 스크롤 이벤트 처리
+    useEffect(() => {
+        document.addEventListener("wheel", handleScroll, { passive: false });
+        return () => {
+            document.removeEventListener("wheel", handleScroll, { passive: false });
+        };
+    }, []);
     
     
-    console.log(handleOpenCalendar);
     return (
-        <div className="home"
+        <div className="home" 
             style={{
                 backgroundImage: `url(${BackGroundImage})`,
                 backgroundPosition: "center",
@@ -89,23 +105,22 @@ const Home = () => {
                 minHeight: "100vh",
             }}
         >
-            <div className="home_top">
-                <div>휴지통</div>
-                <div>내 깃</div>
+            <div  className="home_top">
+                <div className="icon">
+                    <img src= {RecyclingBin} className="recycling-bin" alt="logo" />
+                </div> 
+                <div className="icon">
+                    <a href="https://github.com/Mogdoh/portfolio.git" target="_blank">
+                        <img src={Git} className="git" alt="logo" />
+                    </a>
+                </div>
                 <div>내 노션</div>
-                <div>프로젝트1</div>
+                <div>FionFow</div>
             </div>
 
             <div className="home_bottom">
-                <ul className="window-bottom-bar">
-                    <button>검색창</button>
-                    <button>기타 페이지들</button>
-                    <button>위젯들</button>
-                    <button>오른쪽 섬띵</button>
-                </ul>
-
-                <div className="windowButton">
-                    <button onClick={handleOpenStartMenu}>
+                <div className="window_widget">
+                    <button className="" onClick={handleOpenStartMenu}>
                         열기 버튼
                     </button>
                     {isStartMenuOpen && <StartMenu ref={startMenuRef} />}
