@@ -17,7 +17,6 @@ const Home = () => {
     //outside click
     const startMenuRef = useRef(null);
     const calendarRef = useRef(null);
-
     const printDate = () => {
         const today = new Date();
         const year = today.toLocaleDateString('en-US', {
@@ -31,6 +30,16 @@ const Home = () => {
         });
 
         return `${year}-${month}-${day}`;
+    };
+
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
+    const openModal = () => {
+        setIsModalOpen(true);
+    };
+
+    const closeModal = () => {
+        setIsModalOpen(false);
     };
 
     // 1초마다 현재 시간을 업데이트
@@ -91,6 +100,19 @@ const Home = () => {
             document.removeEventListener("wheel", handleScroll, { passive: false });
         };
     }, []);
+
+    const handleGitClick = event => {
+        if (event.detail === 2 ){
+            window.open("https://github.com/Mogdoh/portfolio.git", "_blank");
+        }
+    }
+
+    const openWindow = event => {
+        if (event.detail === 2) {
+            openModal();
+        }
+    }
+    
     
     
     return (
@@ -110,22 +132,34 @@ const Home = () => {
                     <img src= {RecyclingBin} className="recycling-bin" alt="logo" />
                 </div> 
                 <div className="icon">
-                    <a href="https://github.com/Mogdoh/portfolio.git" target="_blank">
-                        <img src={Git} className="git" alt="logo" />
-                    </a>
+                    <img src={Git} onClick={handleGitClick} className="git" alt="logo" />
                 </div>
+                <div>내 컴퓨터</div>
+                <div>File Explorer</div>
+                <div onClick={openWindow}>Broswer</div>
+                    {isModalOpen && (
+                        <div className="modal">
+                            <div className="modal-content">
+                                <span className="close" onClick={closeModal}>&times;</span>
+                                <iframe src="https://www.google.com/search?igu=1" title="Google" />
+                            </div>
+                        </div>
+                    )}
                 <div>내 노션</div>
                 <div>FionFow</div>
+
             </div>
 
             <div className="home_bottom">
                 <div className="window_widget">
-                    <button className="" onClick={handleOpenStartMenu}>
+                    <button className="home_button" onClick={handleOpenStartMenu}>
                         열기 버튼
                     </button>
                     {isStartMenuOpen && <StartMenu ref={startMenuRef} />}
 
-                    <button onClick={handleOpenCalendar}>
+                    서치바, 위젯1, 위젯2, 위젯3, 위젯4
+
+                    <button className="window_calendar" onClick={handleOpenCalendar}>
                         {formattedTime} {formattedDate}
                     </button>
                     {isCalendarOpen && <Calendar ref={calendarRef} />}
