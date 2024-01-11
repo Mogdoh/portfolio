@@ -90,6 +90,20 @@ const Home = () => {
         };
     }, [isStartMenuOpen, isCalendarOpen]);
 
+    const handleScroll = (e) => {
+        e.preventDefault(); // 기본 스크롤 동작 방지
+        e.stopPropagation(); // 이벤트 전파 중단
+        return false; // 다른 브라우저 기본 동작 방지
+    };
+
+    // 스크롤 이벤트 처리
+    useEffect(() => {
+        document.addEventListener("wheel", handleScroll, { passive: false });
+        return () => {
+            document.removeEventListener("wheel", handleScroll, { passive: false });
+        };
+    }, []);
+
     const handleGitClick = event => {
         if (event.detail === 2) {
             window.open("https://github.com/Mogdoh/portfolio.git", "_blank");
@@ -114,9 +128,9 @@ const Home = () => {
                 minHeight: "100vh",
             }}
         >
-            <div className="home_top">
+            <div  className="home_top">
                 <div className="icon">
-                    <img src={RecyclingBin} className="recycling-bin" alt="logo" />
+                    <img src= {RecyclingBin} className="recycling-bin" alt="logo" />
                 </div> 
                 <div className="icon">
                     <img src={Git} onClick={handleGitClick} className="git" alt="logo" />
@@ -124,24 +138,24 @@ const Home = () => {
                 <div>내 컴퓨터</div>
                 <div>File Explorer</div>
                 <div onClick={openWindow}>Broswer</div>
-                {isModalOpen && (
-                    <div className="modal-container">
-                        <div className="popup-wrap" id="popup">
-                            <div className="popup-head">
-                                <span className="head-title">Broswer
-                                    <span>축소</span>
-                                    <span>전체화면</span>
-                                    <span className='close' onClick={closeModal}>&times;</span>
-                                </span>
-                            </div>
-                            <div className="popup-body">
-                                <div className="body-content">
-                                    <iframe className="broswer-content" src="https://www.google.com/search?igu=1" title="Google" />
+                    {isModalOpen && (
+                        <div className="modal-container">
+                            <div className="popup-wrap" id="popup">
+                                <div className="popup-head">
+                                    <span className="head-title">Broswer
+                                        <span>축소</span>
+                                        <span>전체화면</span>
+                                        <span className='close' onClick={closeModal}>&times;</span>
+                                    </span>
                                 </div>
-                            </div>
-                        </div>    
-                    </div>
-                )}
+                                <div className="popup-body">
+                                    <div className="body-content">
+                                        <iframe className="broswer-content" src="https://www.google.com/search?igu=1" title="Google" />
+                                    </div>
+                                </div>
+                            </div>    
+                        </div>
+                    )}
                 <div>내 노션</div>
                 <div>FionFow</div>
             </div>
