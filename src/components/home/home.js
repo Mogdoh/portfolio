@@ -5,9 +5,8 @@ import StartMenu from "./StartMenu.js";
 import Calendar from "./Calendar.js";
 import BackGroundImage from "../../images/window.jpg";
 import "../../css/Home.css";
-import RecyclingBin from "../../images/empty.png"
-import PulledBin from "../../images/pulled.png"
-import Git from "../../images/git.png"
+import RecyclingBin from "../../images/empty.png";
+import Git from "../../images/git.png";
 import SearchBar from "../widget/SearchBar.js";
 
 const Home = () => {
@@ -15,9 +14,12 @@ const Home = () => {
     const isStartMenuOpen = useSelector((state) => state.isStartMenuOpen);
     const isCalendarOpen = useSelector((state) => state.isCalendarOpen);
     const [currentDateTime, setCurrentDateTime] = useState(new Date());
-    //outside click
+    // outside click
     const startMenuRef = useRef(null);
     const calendarRef = useRef(null);
+    const startMenuButtonRef = useRef(null);
+    const calendarButtonRef = useRef(null);
+    
     const printDate = () => {
         const today = new Date();
         const year = today.toLocaleDateString('en-US', {
@@ -71,49 +73,35 @@ const Home = () => {
             return;
         }
 
-        if (isStartMenuOpen && startMenuRef.current && !startMenuRef.current.contains(event.target)) {
+        if (isStartMenuOpen && startMenuRef.current && !startMenuRef.current.contains(event.target) && !startMenuButtonRef.current.contains(event.target)) {
             dispatch(toggleStartMenu());
         }
-        if (isCalendarOpen && calendarRef.current && !calendarRef.current.contains(event.target)) {
+        
+        if (isCalendarOpen && calendarRef.current && !calendarRef.current.contains(event.target) && !calendarButtonRef.current.contains(event.target)) {
             dispatch(toggleCalendarAction());
         }
     };
-    
+
     // 컴포넌트 마운트 후 클릭 이벤트 리스너 등록, 언마운트 시 리스너 제거
     useEffect(() => {
         document.addEventListener("mousedown", handleClickOutside);
         return () => {
             document.removeEventListener("mousedown", handleClickOutside);
         };
-        
-    }, [isStartMenuOpen, isCalendarOpen])
-
-    const handleScroll = (e) => {
-        e.preventDefault(); // 기본 스크롤 동작 방지
-        e.stopPropagation(); // 이벤트 전파 중단
-        return false; // 다른 브라우저 기본 동작 방지
-    };
-    
-    // 스크롤 이벤트 처리
-    useEffect(() => {
-        document.addEventListener("wheel", handleScroll, { passive: false });
-        return () => {
-            document.removeEventListener("wheel", handleScroll, { passive: false });
-        };
-    }, []);
+    }, [isStartMenuOpen, isCalendarOpen]);
 
     const handleGitClick = event => {
-        if (event.detail === 2 ){
+        if (event.detail === 2) {
             window.open("https://github.com/Mogdoh/portfolio.git", "_blank");
         }
-    }
+    };
 
     const openWindow = event => {
         if (event.detail === 2) {
             openModal();
         }
-    }
-    
+    };
+
     return (
         <div className="home" 
             style={{
@@ -126,9 +114,9 @@ const Home = () => {
                 minHeight: "100vh",
             }}
         >
-            <div  className="home_top">
+            <div className="home_top">
                 <div className="icon">
-                    <img src= {RecyclingBin} className="recycling-bin" alt="logo" />
+                    <img src={RecyclingBin} className="recycling-bin" alt="logo" />
                 </div> 
                 <div className="icon">
                     <img src={Git} onClick={handleGitClick} className="git" alt="logo" />
@@ -136,32 +124,31 @@ const Home = () => {
                 <div>내 컴퓨터</div>
                 <div>File Explorer</div>
                 <div onClick={openWindow}>Broswer</div>
-                    {isModalOpen && (
-                        <div className="modal-container">
-                            <div className="popup-wrap" id="popup">
-                                <div className="popup-head">
-                                    <span className="head-title">Broswer
-                                        <span>축소</span>
-                                        <span>전체화면</span>
-                                        <spna className='close' onClick={closeModal}>&times;</spna>
-                                    </span>
+                {isModalOpen && (
+                    <div className="modal-container">
+                        <div className="popup-wrap" id="popup">
+                            <div className="popup-head">
+                                <span className="head-title">Broswer
+                                    <span>축소</span>
+                                    <span>전체화면</span>
+                                    <span className='close' onClick={closeModal}>&times;</span>
+                                </span>
+                            </div>
+                            <div className="popup-body">
+                                <div className="body-content">
+                                    <iframe className="broswer-content" src="https://www.google.com/search?igu=1" title="Google" />
                                 </div>
-                                <div className="popup-body">
-                                    <div className="body-content">
-                                        <iframe className="broswer-content" src="https://www.google.com/search?igu=1" title="Google" />
-                                    </div>
-                                </div>
-                            </div>    
-                        </div>
-                    )}
+                            </div>
+                        </div>    
+                    </div>
+                )}
                 <div>내 노션</div>
                 <div>FionFow</div>
-
             </div>
 
             <div className="home_bottom">
                 <div className="window_widget">
-                    <button className="home_button" onClick={handleOpenStartMenu}>
+                    <button className="home_button" ref={startMenuButtonRef} onClick={handleOpenStartMenu}>
                         열기 버튼
                     </button>
                     {isStartMenuOpen && <StartMenu ref={startMenuRef} />}
@@ -170,7 +157,7 @@ const Home = () => {
 
                     위젯1, 위젯2, 위젯3, 위젯4
 
-                    <button className="window_calendar" onClick={handleOpenCalendar}>
+                    <button className="window_calendar" ref={calendarButtonRef} onClick={handleOpenCalendar}>
                         {formattedTime} {formattedDate}
                     </button>
                     {isCalendarOpen && <Calendar ref={calendarRef} />}

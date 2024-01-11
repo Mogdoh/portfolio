@@ -17,11 +17,10 @@ return (
     <form onSubmit={handleSearchSubmit}>
         <input
         type="text"
-        placeholder="검색어를 입력하세요"
+        placeholder="검색"
         value={searchTerm}
         onChange={handleSearchChange}
         />
-        <button type="submit">검색</button>
     </form>
     </div>
 );

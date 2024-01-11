@@ -3,16 +3,14 @@
     top: 0;
     left: 0;
     width: 200px;
-    height: 80%;
     background-color: #333;
     color: white;
     overflow: hidden;
     transition: transform 0.3s ease-in-out;
-    transform: translateX(-200px);
 }
 
 .start-menu.open{
-    transform: translateY(0);
+    transform: translateY(-100%);
 }
 
 /* 시작버튼 메뉴 스타일 */
@@ -38,3 +36,4 @@
 .program-left li:hover{
     background-color: #555;
 }
+

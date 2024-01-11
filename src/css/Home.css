@@ -1,12 +1,14 @@
 .home_bottom {
     background-color: gray;
-    height: 60px;
+    height: 5%;
     opacity: 85%;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
 }
 
 .home_top{
     width: auto;
-    height: 745px;
     color: aliceblue;
 }
 
@@ -14,6 +16,7 @@
     width: 65px;
     height: 65px;
 }
+
 .recycling-bin {
     width: 65px;
     height: 65px;
@@ -34,6 +37,7 @@
     width: 40px;
     margin-left: 10px;
     margin-top: 4px;
+    
 }
 
 .popup-wrap{
