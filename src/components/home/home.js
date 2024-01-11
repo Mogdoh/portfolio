@@ -8,6 +8,7 @@ import "../../css/Home.css";
 import RecyclingBin from "../../images/empty.png"
 import PulledBin from "../../images/pulled.png"
 import Git from "../../images/git.png"
+import SearchBar from "../widget/SearchBar.js";
 
 const Home = () => {
     const dispatch = useDispatch();
@@ -113,8 +114,6 @@ const Home = () => {
         }
     }
     
-    
-    
     return (
         <div className="home" 
             style={{
@@ -138,11 +137,21 @@ const Home = () => {
                 <div>File Explorer</div>
                 <div onClick={openWindow}>Broswer</div>
                     {isModalOpen && (
-                        <div className="modal">
-                            <div className="modal-content">
-                                <span className="close" onClick={closeModal}>&times;</span>
-                                <iframe src="https://www.google.com/search?igu=1" title="Google" />
-                            </div>
+                        <div className="modal-container">
+                            <div className="popup-wrap" id="popup">
+                                <div className="popup-head">
+                                    <span className="head-title">Broswer
+                                        <span>축소</span>
+                                        <span>전체화면</span>
+                                        <spna className='close' onClick={closeModal}>&times;</spna>
+                                    </span>
+                                </div>
+                                <div className="popup-body">
+                                    <div className="body-content">
+                                        <iframe className="broswer-content" src="https://www.google.com/search?igu=1" title="Google" />
+                                    </div>
+                                </div>
+                            </div>    
                         </div>
                     )}
                 <div>내 노션</div>
@@ -157,7 +166,9 @@ const Home = () => {
                     </button>
                     {isStartMenuOpen && <StartMenu ref={startMenuRef} />}
 
-                    서치바, 위젯1, 위젯2, 위젯3, 위젯4
+                    <SearchBar></SearchBar>
+
+                    위젯1, 위젯2, 위젯3, 위젯4
 
                     <button className="window_calendar" onClick={handleOpenCalendar}>
                         {formattedTime} {formattedDate}

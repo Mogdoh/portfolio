@@ -19,9 +19,9 @@ const WindowCalendar = forwardRef((props, ref) => {
   return (
     <div ref={ref} className='app'>
       <div className='calendar-container'>
-        <div className={`calendar-model ${isOpen ? 'open' : ''}`}>
+        {/* <div className={`calendar-model ${isOpen ? 'open' : ''}`}> */}
           <Calendar onChange={setDate} value={date} />
-        </div>
+        {/* </div> */}
       </div>
     </div>
   );

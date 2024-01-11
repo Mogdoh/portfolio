@@ -3,10 +3,9 @@ import Loading from "./LoadingSpinner.js"
 import { Link } from "react-router-dom";
 import Home from "../home/Home.js";
 import { useNavigate } from "react-router-dom";
+import BackGroundImage from "../../images/window.jpg"
 
-    
 function StartPage() {
-
     const [showConfirmButton, setShowConfirmButton] = useState(false);
     const [showLoading, setShowLoading] = useState(true);
     const navigate = useNavigate();
@@ -32,17 +31,38 @@ function StartPage() {
         }
 
     return (
-        <div>
+        <div style={{
+            minWidth: "100vw",
+            minHeight: "100vh",
+            position: "relative",
+        }}> 
             {showLoading ? (
-            <div>
-                <p>로딩 중...</p>
+                <div style={{ position: "relative", zIndex: 2 }}>
+                    <p>로딩 중...</p>
                     <Loading />
-            </div>
+                </div>
             ) : (
-            showConfirmButton && <ConfirmButton onClick={handleConfirmClick} />
+                showConfirmButton && (
+                    <ConfirmButton onClick={handleConfirmClick} style={{ position: "relative" }} />
+                )
             )}
+            <div style={{
+                position: "absolute",
+                top: 0,
+                left: 0,
+                right: 0,
+                bottom: 0,
+                backgroundImage: `url(${BackGroundImage})`,
+                backgroundPosition: "center",
+                backgroundSize: "cover",
+                backgroundRepeat: "no-repeat",
+                backgroundAttachment: "fixed",
+                opacity: "0.3",
+                zIndex: 1,
+                pointerEvents: "none",
+                }}/>
         </div>
-        );
+    );
     }
 
 export default StartPage;

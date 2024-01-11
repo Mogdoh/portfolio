@@ -87,7 +87,7 @@ abbr[title] {
     color: white;
 }
 
-
-.calendar-model {
+.calendar-container {
     transform: translateY(-107%);
+    width: 50%;
 }
