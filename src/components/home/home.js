@@ -7,7 +7,9 @@ import BackGroundImage from "../../images/window.jpg";
 import "../../css/Home.css";
 import RecyclingBin from "../../images/empty.png";
 import Git from "../../images/git.png";
-import SearchBar from "../widget/SearchBar.js";
+import Computer from "../../images/icon_computer.png"
+
+
 
 const Home = () => {
     const dispatch = useDispatch();
@@ -63,8 +65,22 @@ const Home = () => {
         dispatch(toggleStartMenu());
     };
 
-    const handleOpenCalendar = () => {
-        dispatch(toggleCalendarAction());
+    const handleComputer = (event) => {
+        if (event.detail === 2 ) {
+            
+        }
+    }
+
+    const handleGitClick = event => {
+        if (event.detail === 2) {
+            window.open("https://github.com/Mogdoh/portfolio.git", "_blank");
+        }
+    };
+
+    const openWindow = event => {
+        if (event.detail === 2) {
+            openModal();
+        }
     };
 
     // Outside click 이벤트 핸들러
@@ -76,10 +92,6 @@ const Home = () => {
         if (isStartMenuOpen && startMenuRef.current && !startMenuRef.current.contains(event.target) && !startMenuButtonRef.current.contains(event.target)) {
             dispatch(toggleStartMenu());
         }
-        
-        if (isCalendarOpen && calendarRef.current && !calendarRef.current.contains(event.target) && !calendarButtonRef.current.contains(event.target)) {
-            dispatch(toggleCalendarAction());
-        }
     };
 
     // 컴포넌트 마운트 후 클릭 이벤트 리스너 등록, 언마운트 시 리스너 제거
@@ -88,7 +100,7 @@ const Home = () => {
         return () => {
             document.removeEventListener("mousedown", handleClickOutside);
         };
-    }, [isStartMenuOpen, isCalendarOpen]);
+    }, [isStartMenuOpen]);
 
     const handleScroll = (e) => {
         e.preventDefault(); // 기본 스크롤 동작 방지
@@ -104,17 +116,7 @@ const Home = () => {
         };
     }, []);
 
-    const handleGitClick = event => {
-        if (event.detail === 2) {
-            window.open("https://github.com/Mogdoh/portfolio.git", "_blank");
-        }
-    };
 
-    const openWindow = event => {
-        if (event.detail === 2) {
-            openModal();
-        }
-    };
 
     return (
         <div className="home" 
@@ -128,15 +130,24 @@ const Home = () => {
                 minHeight: "100vh",
             }}
         >
-            <div  className="home_top">
+            <div className="home_top" style={{marginLeft: '0.5%'}}>
                 <div className="icon">
                     <img src= {RecyclingBin} className="recycling-bin" alt="logo" />
+                    <h4>휴지통</h4>
                 </div> 
+
                 <div className="icon">
                     <img src={Git} onClick={handleGitClick} className="git" alt="logo" />
+                    <h4>GitHub</h4>
                 </div>
-                <div>내 컴퓨터</div>
+
+                <div className="icon">
+                    <img src={Computer} onClick={handleComputer} className="computer" alt="logo"/>
+                    <h4>내 컴퓨터</h4>
+                </div>
+
                 <div>File Explorer</div>
+                
                 <div onClick={openWindow}>Broswer</div>
                     {isModalOpen && (
                         <div className="modal-container">
@@ -156,25 +167,29 @@ const Home = () => {
                             </div>    
                         </div>
                     )}
-                <div>내 노션</div>
+                    
                 <div>FionFow</div>
             </div>
 
             <div className="home_bottom">
                 <div className="window_widget">
-                    <button className="home_button" ref={startMenuButtonRef} onClick={handleOpenStartMenu}>
-                        열기 버튼
-                    </button>
+                        <button onClick={handleOpenStartMenu} ref={startMenuButtonRef} style={{
+                            marginLeft: '1%'
+                        }}>
+                            열기
+                        </button>
                     {isStartMenuOpen && <StartMenu ref={startMenuRef} />}
 
-                    <SearchBar></SearchBar>
+                        <p style={{
+                            whiteSpace: 'pre-wrap',
+                            marginLeft: '90%',
+                            color: 'white',
+                            width: 'auto',
+                            height: 'auto'
+                            }}>
+                            <span style={{marginLeft: '10px'}}>{formattedTime}</span> <br/> {formattedDate} 
+                        </p>
 
-                    위젯1, 위젯2, 위젯3, 위젯4
-
-                    <button className="window_calendar" ref={calendarButtonRef} onClick={handleOpenCalendar}>
-                        {formattedTime} {formattedDate}
-                    </button>
-                    {isCalendarOpen && <Calendar ref={calendarRef} />}
                 </div>
             </div>
         </div>

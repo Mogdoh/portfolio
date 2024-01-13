@@ -18,10 +18,6 @@ const StartMenu = forwardRef ((props, ref) => {
 
     return (
         <div ref={ref} className={`start-menu ${isOpen ? 'open' : ''}`}>
-            <button onClick={handleButtonClick} className="start-button">
-                시작 버튼 이미지
-            </button>
-
             <ul className="program-list">
                 <li onClick={() => handleAppItemClick("휴지통")}>휴지통</li>
                 <li onClick={() => handleAppItemClick("내 깃")}>내 깃</li>
